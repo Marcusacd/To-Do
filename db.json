@@ -1,0 +1,52 @@
+{
+  "listaTarefas": [
+    {
+      "id": 1,
+      "descricao": "Arrumar o quarto"
+    },
+    {
+      "id": 2,
+      "descricao": "Fazer as compras"
+    },
+    {
+      "id": 3,
+      "descricao": "Comprar remédios"
+    },
+    {
+      "descricao": "Testando db.json",
+      "id": 4
+    }
+  ],
+  "todo": [
+    {
+      "id": 1,
+      "descricao": "Arrumar o quarto",
+      "idlista": 1
+    },
+    {
+      "id": 2,
+      "descricao": "Fazer as compras",
+      "idlista": 1
+    },
+    {
+      "id": 3,
+      "descricao": "Comprar remédios",
+      "idlista": 2
+    },
+    {
+      "descricao": "Testando db.json",
+      "id": 4,
+      "idlista": 3
+    }
+  ],
+  "lista": [
+    {
+      "id": 0,
+      "nome": "To-Do"
+    },
+    {
+      "nome": "teste",
+      "id": 1
+    }
+  ]
+}

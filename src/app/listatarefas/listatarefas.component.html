@@ -1,0 +1,23 @@
+<div class="flex flex-col w-full h-full">
+    <div  class="tabs p-4">
+        <a *ngFor="let item of listaToDo" class="tab tab-bordered" [id]=" item.id " (click)="tabAtiva = item.nome" routerLink="/to-do" [ngClass]="{ 'tab-active': tabAtiva === item.nome }"> {{ item.nome }}</a>
+      
+    </div>
+    <form [formGroup]="formListaNome">
+        <button class="btn btn-ghost" (click)="addNomeLista()">Nova Lista</button>
+        <input type="text" formControlName="inputNomeLista" placeholder="Type here" class="input input-ghost w-full max-w-xs" />
+    </form>      
+    <div class="flex flex-col pl-4 pt-4 pr-4">
+        <form [formGroup]="formToDo" class="flex flex-col" (keydown.enter)="teclaEnter($event)">
+
+            <div class="relative">
+                <input type="text" formControlName="inputToDo" placeholder="Digite aqui e aperte Enter para criar uma nova tarefa." id="texto"
+                    class="input input-ghost w-full pr-10 placeholder-blue-300" />
+
+            </div>
+        </form>
+    </div>
+    <app-card-select [toDoText]="toDoText" (excluirItem)="excluir($event)" ></app-card-select>
+</div> 
+
+
