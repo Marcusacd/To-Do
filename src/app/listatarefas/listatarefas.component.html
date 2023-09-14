@@ -1,14 +1,17 @@
 <div class="flex flex-col w-full h-full">
     <div  class="tabs p-4">
-        <a *ngFor="let item of listaToDo" class="tab tab-bordered" [id]=" item.id " (click)="tabAtiva = item.nome" routerLink="/to-do" [ngClass]="{ 'tab-active': tabAtiva === item.nome }"> {{ item.nome }}</a>
+        <a *ngFor="let item of listaToDo" class="tab tab-bordered" [id]=" item.id " (click)="tabAtiva = item.nome" [ngClass]="{ 'tab-active': tabAtiva === item.nome }"> {{ item.nome }}</a>
       
     </div>
-    <form [formGroup]="formListaNome">
-        <button class="btn btn-ghost" (click)="addNomeLista()">Nova Lista</button>
-        <input type="text" formControlName="inputNomeLista" placeholder="Type here" class="input input-ghost w-full max-w-xs" />
+    <form [formGroup]="formListaNome" (keydown.enter)="enterListaNome($event)">
+        <div class="relative pl-4">
+            <!-- <button class="btn btn-ghost" (click)="addNomeLista()">Nova Lista</button> -->
+            <input type="text" formControlName="inputNomeLista" placeholder="Nova Lista" class="input input-ghost w-full max-w-xs   placeholder-blue-300 input-custom" />
+            <mat-icon class="absolute inset-y-0 left-4 mt-3 cursor-pointer text-blue-300" (click)="addNomeLista()">add</mat-icon>
+        </div>
     </form>      
     <div class="flex flex-col pl-4 pt-4 pr-4">
-        <form [formGroup]="formToDo" class="flex flex-col" (keydown.enter)="teclaEnter($event)">
+        <form [formGroup]="formToDo" class="flex flex-col" (keydown.enter)="enterCriarTarefa($event)">
 
             <div class="relative">
                 <input type="text" formControlName="inputToDo" placeholder="Digite aqui e aperte Enter para criar uma nova tarefa." id="texto"

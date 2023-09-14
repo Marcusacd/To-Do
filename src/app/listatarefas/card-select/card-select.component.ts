@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListaToDo } from 'src/app/models/listato-do';
+import { ItemToDo } from 'src/app/models/itemto-do';
 
 @Component({
   selector: 'app-card-select',
@@ -8,7 +8,7 @@ import { ListaToDo } from 'src/app/models/listato-do';
 })
 export class CardSelectComponent {
 
-  @Input() toDoText?: ListaToDo[]
+  @Input() toDoText?: ItemToDo[]
   @Output() excluirItem =  new EventEmitter<number>()
 
 

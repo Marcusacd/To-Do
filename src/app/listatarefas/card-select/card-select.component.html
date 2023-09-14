@@ -1,17 +1,15 @@
-<!-- <div class="flex flex-col-reverse p-2">
-    <div *ngFor="let msg of toDoText" class="card shadow-md h-14">
-        <div *ngFor="let item of msg.itens">
-            <div class="flex flex-row">
-                <div class="card-body flex flex-row items-center h-14">
-                    <input type="radio" class="radio radio-info w-4 h-4" />
-                    <p class="paragrafo pl-2 pr-4 w-full">{{ item.descricao }}</p>
-                </div>
-                <div class="card-actions justify-end items-center h-14">
-                    <button class="btn btn-circle">
-                        <mat-icon (click)="excluir(item.id!)" class="text-red-500" title="Excluir">delete</mat-icon>
-                    </button>
-                </div>
+<div class="flex flex-col-reverse p-2">
+    <div *ngFor="let tarefa of toDoText" class="card shadow-md h-14">
+        <div class="flex flex-row">
+            <div class="card-body flex flex-row items-center h-14">
+                <input type="radio" class="radio radio-info w-4 h-4" />
+                <p class="paragrafo pl-2 pr-4 w-full">{{ tarefa.descricao }}</p>
+            </div>
+            <div class="card-actions justify-end items-center h-14">
+                <button class="btn btn-circle">
+                    <mat-icon (click)="excluir(tarefa.id!)" class="text-red-500" title="Excluir">delete</mat-icon>
+                </button>
             </div>
         </div>
     </div>
-</div> -->
+</div>

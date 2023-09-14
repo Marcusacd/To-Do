@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListaToDo } from '../models/listato-do';
+import { ItemToDo } from '../models/itemto-do';
 
 @Injectable({
   providedIn: 'root'
@@ -33,17 +34,17 @@ export class ToDoService {
     //   return this.http.get<ListToDo>(url)
     // }
 
-    getListaTodo(): Observable<ListaToDo[]> {
-      return this.http.get<ListaToDo[]>(`${this.API}/todo`)
+    getListaTodo(): Observable<ItemToDo[]> {
+      return this.http.get<ItemToDo[]>(`${this.API}/todo`)
     }
 
-    PostListaTodo(tarefa: ListaToDo): Observable<ListaToDo> {
-      return this.http.post<ListaToDo>(`${this.API}/todo`, tarefa)
+    PostListaTodo(tarefa: ItemToDo): Observable<ItemToDo> {
+      return this.http.post<ItemToDo>(`${this.API}/todo`, tarefa)
     }
 
-    excluir(id: number): Observable<ListaToDo> {
+    excluir(id: number): Observable<ItemToDo> {
       const url = `${`${this.API}/todo`}/${id}`
-      return this.http.delete<ListaToDo>(url)
+      return this.http.delete<ItemToDo>(url)
     }
 
     nomeLista(): Observable<ListaToDo[]> {

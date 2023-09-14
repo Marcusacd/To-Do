@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ListaToDo } from '../models/listato-do';
 import { ToDoService } from '../services/to-do.service';
+import { ItemToDo } from '../models/itemto-do';
+
 
 @Component({
   selector: 'app-listatarefas',
@@ -12,9 +14,9 @@ import { ToDoService } from '../services/to-do.service';
 export class ListatarefasComponent implements OnInit {
 
 
-  toDoText: ListaToDo[] = []
+  toDoText: ItemToDo[] = []
   formToDo!: FormGroup
-  tabAtiva?: string = 'tab1'
+  tabAtiva?: string = 'To-Do'
   listaToDo: ListaToDo[] = []
   formListaNome!: FormGroup
 
@@ -40,15 +42,21 @@ export class ListatarefasComponent implements OnInit {
   ngOnInit() {
     this.renderer.selectRootElement("#texto").focus()
     // this.listar()
-    // this.getListaTodo()
+    this.getListaTodo()
     this.nomeLista()
    
   }
 
-  teclaEnter(event: Event) {
+  enterCriarTarefa(event: Event) {
     event.preventDefault(); // Impede o comportamento padrão da tecla Enter
     event.stopPropagation(); // Impede a propagação do evento para outros elementos 
-    // this.addToDo()
+    this.addToDo()
+  }
+
+  enterListaNome(evento: Event) {
+    evento.preventDefault(); // Impede o comportamento padrão da tecla Enter
+    evento.stopPropagation(); // Impede a propagação do evento para outros elementos 
+    this.addNomeLista()
   }
 
   // addToDo() {
@@ -86,8 +94,8 @@ export class ListatarefasComponent implements OnInit {
   }
 
   addToDo() {
-    const item: ListaToDo = new ListaToDo
-    // item.itens = this.formToDo.value.inputToDo
+    const item: ItemToDo = new ItemToDo
+    item.descricao = this.formToDo.value.inputToDo
     if (this.formToDo.valid === true) {
       this.toDoText.push(item)
       this.listToDoService.PostListaTodo(item).subscribe()
