@@ -1,13 +1,12 @@
-<div class="flex flex-col w-full h-full">
-    <div  class="tabs p-4">
-        <a *ngFor="let item of listaToDo" class="tab tab-bordered" [id]=" item.id " (click)="tabAtiva = item.nome" [ngClass]="{ 'tab-active': tabAtiva === item.nome }"> {{ item.nome }}</a>
-      
+<div class="flex flex-row w-full h-full">
+    <div  class="tabs p-4 flex-col items-start">
+        <a *ngFor="let item of listaToDo" class="tab tab-bordered" [id]=" item.id " (click)="buscarToDo(item)" [ngClass]="{ 'tab-active': tabAtiva === item.id }"> {{ item.nome }}</a>      
     </div>
     <form [formGroup]="formListaNome" (keydown.enter)="enterListaNome($event)">
         <div class="relative pl-4">
             <!-- <button class="btn btn-ghost" (click)="addNomeLista()">Nova Lista</button> -->
-            <input type="text" formControlName="inputNomeLista" placeholder="Nova Lista" class="input input-ghost w-full max-w-xs   placeholder-blue-300 input-custom" />
-            <mat-icon class="absolute inset-y-0 left-4 mt-3 cursor-pointer text-blue-300" (click)="addNomeLista()">add</mat-icon>
+            <input type="text" formControlName="inputNomeLista" placeholder="Nova Lista" class="input input-sm input-ghost w-full max-w-xs   placeholder-blue-300 input-custom" />
+            <mat-icon class="absolute inset-y-0 left-4 mt-3 cursor-pointer text-blue-300 text-base" (click)="addNomeLista()">add</mat-icon>
         </div>
     </form>      
     <div class="flex flex-col pl-4 pt-4 pr-4">

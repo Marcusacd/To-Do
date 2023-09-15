@@ -1,6 +1,5 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ListaToDo } from '../models/listato-do';
 import { ToDoService } from '../services/to-do.service';
 import { ItemToDo } from '../models/itemto-do';
@@ -16,17 +15,16 @@ export class ListatarefasComponent implements OnInit {
 
   toDoText: ItemToDo[] = []
   formToDo!: FormGroup
-  tabAtiva?: string = 'To-Do'
+  tabAtiva?: number
   listaToDo: ListaToDo[] = []
   formListaNome!: FormGroup
-
+  selectedList?: ListaToDo
 
 
   constructor(
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
-    private listToDoService: ToDoService,
-    private route: ActivatedRoute
+    private listToDoService: ToDoService,  
   ) {
     this.formToDo = this.formBuilder.group({
       inputToDo: ['', Validators.compose([
@@ -40,10 +38,9 @@ export class ListatarefasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.renderer.selectRootElement("#texto").focus()
-    // this.listar()
-    this.getListaTodo()
-    this.nomeLista()
+    this.renderer.selectRootElement("#texto").focus()   
+    
+    this.nomeLista()     
    
   }
 
@@ -59,48 +56,37 @@ export class ListatarefasComponent implements OnInit {
     this.addNomeLista()
   }
 
-  // addToDo() {
-  //   const item: ItemToDo = new ItemToDo
-  //   item.descricao = this.formToDo.value.inputToDo
-  //   if (this.formToDo.valid === true) {
-  //     this.toDoText.push(item)
-  //     this.listToDoService.criar(item).subscribe()
-  //     this.formToDo.reset()
-  //     this.listar()
-  //   }
-  // }
+  buscarToDo(lista: ListaToDo) {
+    this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
+      console.log('buscarToDo', data)
+      this.tabAtiva = lista.id
+      this.getListaTodo(lista)
+      this.selectedList = lista      
+    })
+  }
 
-  // listar() {
-  //   this.listToDoService.listar().subscribe((data) => {
-  //     this.toDoText = data
-  //   })
-  // }
-
-  // criar() {
-  //   this.listToDoService.criar(this.formToDo.value.inputToDo).subscribe()
-  // }
-
-  // excluir(id: number) {
-  //   this.listToDoService.excluir(id).subscribe((data) => {
-  //     console.log('passei pelo excluir', data)
-  //   })
-  //   this.listar()
-  // }
-
-  getListaTodo() {
-    this.listToDoService.getListaTodo().subscribe((data) => {
+  getListaTodo(lista: ListaToDo) {
+    this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
       this.toDoText = data
     })
+  }
+
+  getListById(id: number) {
+    this.listToDoService.getTodoByList(id).subscribe((data) => {     
+      this.toDoText = data                
+    });
   }
 
   addToDo() {
     const item: ItemToDo = new ItemToDo
     item.descricao = this.formToDo.value.inputToDo
+    item.idlista = this.selectedList!.id
+    console.log("idlista", item.idlista)
     if (this.formToDo.valid === true) {
       this.toDoText.push(item)
       this.listToDoService.PostListaTodo(item).subscribe()
       this.formToDo.reset()
-      this.getListaTodo()
+      this.getListaTodo(this.selectedList!)      
     }
   }
 
@@ -108,12 +94,15 @@ export class ListatarefasComponent implements OnInit {
     this.listToDoService.excluir(id).subscribe((data) => {
       console.log('excluir', data)
     })
-    this.getListaTodo()
+    this.getListaTodo(this.selectedList!)
   }
 
   nomeLista() {
     this.listToDoService.nomeLista().subscribe((data) => {
       this.listaToDo = data
+      if (this.listaToDo.length > 0){
+        this.buscarToDo(this.listaToDo[0])
+      }
     })
   }
 
@@ -121,10 +110,14 @@ export class ListatarefasComponent implements OnInit {
     const item: ListaToDo = new ListaToDo
     item.nome = this.formListaNome.value.inputNomeLista
     if (this.formListaNome.valid === true) {
-      this.listaToDo.push(item)
-      this.listToDoService.postNomeLista(item).subscribe()
-      this.formListaNome.reset()
-      this.nomeLista()
+      this.listToDoService.postNomeLista(item).subscribe((data) => {
+        if (data) {
+          this.listaToDo.push(item)
+          this.formListaNome.reset()
+        }
+      },(error) => {
+        console.log("error", error)
+      })
     }
   }
 }
