@@ -58,7 +58,7 @@ export class ListatarefasComponent implements OnInit {
 
   buscarToDo(lista: ListaToDo) {
     this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
-      console.log('buscarToDo', data)
+      // console.log('buscarToDo', data)
       this.tabAtiva = lista.id
       this.getListaTodo(lista)
       this.selectedList = lista      
@@ -81,6 +81,7 @@ export class ListatarefasComponent implements OnInit {
     const item: ItemToDo = new ItemToDo
     item.descricao = this.formToDo.value.inputToDo
     item.idlista = this.selectedList!.id
+    item.status = "A"
     console.log("idlista", item.idlista)
     if (this.formToDo.valid === true) {
       this.toDoText.push(item)
@@ -95,6 +96,13 @@ export class ListatarefasComponent implements OnInit {
       console.log('excluir', data)
     })
     this.getListaTodo(this.selectedList!)
+  }
+
+  excluirNomeLista(id: number) {
+    this.listToDoService.excluirNomeLista(id).subscribe((data) => {
+      console.log('excluirNomeLista', data)
+      this.nomeLista()
+    })
   }
 
   nomeLista() {
@@ -119,5 +127,12 @@ export class ListatarefasComponent implements OnInit {
         console.log("error", error)
       })
     }
+  }
+
+  postTodoByStatus(status: ItemToDo) {
+    this.listToDoService.postToDobyStatus(status).subscribe((data) => {
+      console.log("postTodoByStatus", data)
+
+    })
   }
 }
