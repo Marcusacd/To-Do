@@ -99,10 +99,14 @@ export class ListatarefasComponent implements OnInit {
   }
 
   excluirNomeLista(id: number) {
-    this.listToDoService.excluirNomeLista(id).subscribe((data) => {
-      console.log('excluirNomeLista', data)
-      this.nomeLista()
-    })
+    if (this.toDoText.length === 0) {
+      this.listToDoService.excluirNomeLista(id).subscribe((data) => {
+        console.log('excluirNomeLista', data)
+        this.nomeLista()
+      })
+    } else {      
+      window.alert('A lista não esta vazia. Não é possivel excluir a lista')
+    }
   }
 
   nomeLista() {
@@ -129,10 +133,14 @@ export class ListatarefasComponent implements OnInit {
     }
   }
 
-  postTodoByStatus(status: ItemToDo) {
-    this.listToDoService.postToDobyStatus(status).subscribe((data) => {
-      console.log("postTodoByStatus", data)
+  putTodoByStatus(item: ItemToDo) {
+    // if (status.id !== undefined) {
+      item.status = 'F'
+      this.listToDoService.putToDobyStatus(item).subscribe((data) => {
+        console.log("putTodoByStatus123", data)
+        if (data) {}
+        // risca a lista             
+      })
 
-    })
   }
 }

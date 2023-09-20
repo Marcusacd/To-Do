@@ -16,24 +16,6 @@ export class ToDoService {
       private http: HttpClient
     ) { }
 
-  // listar(): Observable<ItemToDo[]> {
-  //   return this.http.get<ItemToDo[]>(`${this.API}/listaTarefas`)
-  // }
-
-  // criar(tarefa: ItemToDo): Observable<ItemToDo> {
-  //   return this.http.post<ItemToDo>(`${this.API}/listaTarefas`, tarefa)
-  // }
-
-  // excluir(id: number): Observable<ItemToDo> {
-  //   const url = `${`${this.API}/listaTarefas`}/${id}`
-  //   return this.http.delete<ItemToDo>(url)
-  // }
-
-  // buscarId(id: number): Observable<ListToDo> {
-  //   const url = `${this.API}/${id}`
-  //   return this.http.get<ListToDo>(url)
-  // }
-
   getTodoByList(id: number): Observable<ItemToDo[]> {
     const params = new HttpParams().set('idlista', id)
     return this.http.get<ItemToDo[]>(`${this.API}/todo`, { params })
@@ -48,9 +30,8 @@ export class ToDoService {
     return this.http.delete<ItemToDo>(url)
   }
 
-  postToDobyStatus(status: ItemToDo): Observable<ItemToDo> {
-    const url = `${`${this.API}/todo`}/${status}`
-    return this.http.put<ItemToDo>(url, status)
+  putToDobyStatus(item: ItemToDo): Observable<ItemToDo> {    
+    return this.http.put<ItemToDo>(`${this.API}/todo/${item.id}`, item )
   }
 
   nomeLista(): Observable<ListaToDo[]> {
