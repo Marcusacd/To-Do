@@ -11,27 +11,20 @@ export class CardSelectComponent {
   @Input() toDoText?: ItemToDo[]
   @Output() excluirItem =  new EventEmitter<number>()
   @Output() postStatus =  new EventEmitter<ItemToDo>()
+  @Output() testeStatus =  new EventEmitter<ItemToDo>()
 
-  selectedInput: boolean = false
-  selecionado: any
 
   excluir(id: number) {
     this.excluirItem.emit(id)
   }
 
   putTodoByStatus(status: ItemToDo) {
-    this.postStatus.emit(status)
-    this.inputSelecionado()
-  }
-  
-  inputSelecionado() {
-    if (this.selectedInput === false) {
-      this.selectedInput = true
-    } else {
-      this.selectedInput = false
-    }       
+    this.postStatus.emit(status)    
   }
 
+  testandoConcluido(status: ItemToDo) {
+    this.testeStatus.emit(status)
+  }
 
 }
 

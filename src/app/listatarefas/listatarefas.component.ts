@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListaToDo } from '../models/listato-do';
 import { ToDoService } from '../services/to-do.service';
 import { ItemToDo } from '../models/itemto-do';
+import { Statustodo } from '../enum/status-todo.enum';
+
 
 
 @Component({
@@ -21,10 +23,11 @@ export class ListatarefasComponent implements OnInit {
   selectedList?: ListaToDo
 
 
+
   constructor(
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
-    private listToDoService: ToDoService,  
+    private listToDoService: ToDoService,
   ) {
     this.formToDo = this.formBuilder.group({
       inputToDo: ['', Validators.compose([
@@ -38,10 +41,10 @@ export class ListatarefasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.renderer.selectRootElement("#texto").focus()   
-    
-    this.nomeLista()     
-   
+    this.renderer.selectRootElement("#texto").focus()
+
+    this.nomeLista()
+
   }
 
   enterCriarTarefa(event: Event) {
@@ -57,23 +60,26 @@ export class ListatarefasComponent implements OnInit {
   }
 
   buscarToDo(lista: ListaToDo) {
+    // this.listToDoService.getTodoByList(lista.id!, Statustodo.aberto).subscribe((data) => {
     this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
       // console.log('buscarToDo', data)
       this.tabAtiva = lista.id
       this.getListaTodo(lista)
-      this.selectedList = lista      
+      this.selectedList = lista
     })
   }
 
   getListaTodo(lista: ListaToDo) {
+    // this.listToDoService.getTodoByList(lista.id!, Statustodo.aberto).subscribe((data) => {
     this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
       this.toDoText = data
     })
   }
 
   getListById(id: number) {
-    this.listToDoService.getTodoByList(id).subscribe((data) => {     
-      this.toDoText = data                
+    // this.listToDoService.getTodoByList(id, Statustodo.aberto).subscribe((data) => {
+    this.listToDoService.getTodoByList(id).subscribe((data) => {
+      this.toDoText = data
     });
   }
 
@@ -81,13 +87,13 @@ export class ListatarefasComponent implements OnInit {
     const item: ItemToDo = new ItemToDo
     item.descricao = this.formToDo.value.inputToDo
     item.idlista = this.selectedList!.id
-    item.status = "A"
+    item.status = Statustodo.aberto
     console.log("idlista", item.idlista)
     if (this.formToDo.valid === true) {
       this.toDoText.push(item)
       this.listToDoService.PostListaTodo(item).subscribe()
       this.formToDo.reset()
-      this.getListaTodo(this.selectedList!)      
+      this.getListaTodo(this.selectedList!)
     }
   }
 
@@ -104,7 +110,7 @@ export class ListatarefasComponent implements OnInit {
         console.log('excluirNomeLista', data)
         this.nomeLista()
       })
-    } else {      
+    } else {
       window.alert('A lista não esta vazia. Não é possivel excluir a lista')
     }
   }
@@ -112,7 +118,7 @@ export class ListatarefasComponent implements OnInit {
   nomeLista() {
     this.listToDoService.nomeLista().subscribe((data) => {
       this.listaToDo = data
-      if (this.listaToDo.length > 0){
+      if (this.listaToDo.length > 0) {
         this.buscarToDo(this.listaToDo[0])
       }
     })
@@ -127,20 +133,48 @@ export class ListatarefasComponent implements OnInit {
           this.listaToDo.push(item)
           this.formListaNome.reset()
         }
-      },(error) => {
-        console.log("error", error)
       })
     }
   }
 
   putTodoByStatus(item: ItemToDo) {
-    // if (status.id !== undefined) {
-      item.status = 'F'
-      this.listToDoService.putToDobyStatus(item).subscribe((data) => {
+    if (item.status === Statustodo.aberto) {
+      item.status = Statustodo.finalizar
+      this.listToDoService.putToDobyStatus(item).subscribe(data => {
         console.log("putTodoByStatus123", data)
-        if (data) {}
-        // risca a lista             
+        // this.getListaTodo(this.selectedList!)
       })
-
+    } else {
+      item.status = Statustodo.aberto
+      this.listToDoService.putToDobyStatus(item).subscribe(data => {
+        console.log("putTodoByStatus123", data)
+        // this.getListaTodo(this.selectedList!)
+      })
+    }
   }
+
+  // putTodoByStatus(item: ItemToDo) { 
+  //   item.status = Statustodo.finalizar
+  //   this.listToDoService.putToDobyStatus(item).subscribe(data => {
+  //     console.log("putTodoByStatus123", data)
+  //     // this.getListaTodo(this.selectedList!)
+  //     if (data) { 
+  //       item.status = Statustodo.finalizar
+  //     } 
+  //     // risca a lista             
+  //   }, (error) => {
+  //     item.status = Statustodo.aberto
+  //   }
+  //   )
+  // }
+
+
+  testandoConcluido(status: ItemToDo) {
+    if (status.status === Statustodo.finalizar) {
+      this.listToDoService.testandoConcluido(status.status!).subscribe((data) => {
+        console.log("testandoConcluido", data)
+      })
+    }
+  }
+  
 }
