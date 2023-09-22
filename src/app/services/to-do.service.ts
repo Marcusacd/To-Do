@@ -16,18 +16,19 @@ export class ToDoService {
       private http: HttpClient
     ) { }
 
-  // getTodoByList(id: number, status: string): Observable<ItemToDo[]> {
-  //   const params = new HttpParams().set('idlista', id).set('status', status)
-  //   return this.http.get<ItemToDo[]>(`${this.API}/todo`, { params })
-  // }
-
-  getTodoByList(id: number): Observable<ItemToDo[]> {
-    const params = new HttpParams().set('idlista', id)
+  getTodoByList(id: number, status: string): Observable<ItemToDo[]> {
+    const params = new HttpParams().set('idlista', id).set('status', status)
     return this.http.get<ItemToDo[]>(`${this.API}/todo`, { params })
   }
+
+  // getTodoByList(id: number): Observable<ItemToDo[]> {
+  //   const params = new HttpParams().set('idlista', id)
+  //   return this.http.get<ItemToDo[]>(`${this.API}/todo`, { params })
+  // }
+  
   // teste para ver se funciona separar as mensagens abertas das finalizadas
-  testandoConcluido(status: string): Observable<ItemToDo[]> {
-    const params = new HttpParams().set('status', status)
+  testandoConcluido(id: number, status: string): Observable<ItemToDo[]> {
+    const params = new HttpParams().set('idlista', id).set('status', status)
     return this.http.get<ItemToDo[]>(`${this.API}/todo`, { params })
   }
 

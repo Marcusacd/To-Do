@@ -4,7 +4,7 @@
       "id": 1,
       "descricao": "Arrumar o quarto",
       "idlista": 1,
-      "status": "A"
+      "status": "F"
     },
     {
       "id": 2,
@@ -27,13 +27,13 @@
     {
       "descricao": "excluir",
       "idlista": 3,
-      "status": "A",
+      "status": "F",
       "id": 6
     },
     {
       "descricao": "lenovo",
       "idlista": 1,
-      "status": "A",
+      "status": "F",
       "id": 7
     },
     {

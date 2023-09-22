@@ -21,6 +21,8 @@ export class ListatarefasComponent implements OnInit {
   listaToDo: ListaToDo[] = []
   formListaNome!: FormGroup
   selectedList?: ListaToDo
+  itemToDoFinalizado: ItemToDo[] = []
+  
 
 
 
@@ -43,8 +45,9 @@ export class ListatarefasComponent implements OnInit {
   ngOnInit() {
     this.renderer.selectRootElement("#texto").focus()
 
-    this.nomeLista()
-
+    this.nomeLista()  
+    // this.testandoConcluido(this.selectedList!, Statustodo.finalizar)    
+    
   }
 
   enterCriarTarefa(event: Event) {
@@ -60,25 +63,26 @@ export class ListatarefasComponent implements OnInit {
   }
 
   buscarToDo(lista: ListaToDo) {
-    // this.listToDoService.getTodoByList(lista.id!, Statustodo.aberto).subscribe((data) => {
-    this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
+    this.listToDoService.getTodoByList(lista.id!, Statustodo.aberto).subscribe((data) => {
+    // this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
       // console.log('buscarToDo', data)
       this.tabAtiva = lista.id
       this.getListaTodo(lista)
+      this.testandoConcluido(lista, Statustodo.finalizar)
       this.selectedList = lista
     })
   }
 
   getListaTodo(lista: ListaToDo) {
-    // this.listToDoService.getTodoByList(lista.id!, Statustodo.aberto).subscribe((data) => {
-    this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
+    this.listToDoService.getTodoByList(lista.id!, Statustodo.aberto).subscribe((data) => {
+    // this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
       this.toDoText = data
     })
   }
 
   getListById(id: number) {
-    // this.listToDoService.getTodoByList(id, Statustodo.aberto).subscribe((data) => {
-    this.listToDoService.getTodoByList(id).subscribe((data) => {
+    this.listToDoService.getTodoByList(id, Statustodo.aberto).subscribe((data) => {
+    // this.listToDoService.getTodoByList(id).subscribe((data) => {
       this.toDoText = data
     });
   }
@@ -102,6 +106,7 @@ export class ListatarefasComponent implements OnInit {
       console.log('excluir', data)
     })
     this.getListaTodo(this.selectedList!)
+    this.testandoConcluido(this.selectedList!, Statustodo.finalizar)
   }
 
   excluirNomeLista(id: number) {
@@ -117,7 +122,7 @@ export class ListatarefasComponent implements OnInit {
 
   nomeLista() {
     this.listToDoService.nomeLista().subscribe((data) => {
-      this.listaToDo = data
+      this.listaToDo = data      
       if (this.listaToDo.length > 0) {
         this.buscarToDo(this.listaToDo[0])
       }
@@ -142,13 +147,15 @@ export class ListatarefasComponent implements OnInit {
       item.status = Statustodo.finalizar
       this.listToDoService.putToDobyStatus(item).subscribe(data => {
         console.log("putTodoByStatus123", data)
-        // this.getListaTodo(this.selectedList!)
+        this.getListaTodo(this.selectedList!)
+        this.testandoConcluido(this.selectedList!, Statustodo.finalizar)
       })
     } else {
       item.status = Statustodo.aberto
       this.listToDoService.putToDobyStatus(item).subscribe(data => {
         console.log("putTodoByStatus123", data)
-        // this.getListaTodo(this.selectedList!)
+        this.getListaTodo(this.selectedList!)
+        this.testandoConcluido(this.selectedList!, Statustodo.finalizar)
       })
     }
   }
@@ -169,12 +176,14 @@ export class ListatarefasComponent implements OnInit {
   // }
 
 
-  testandoConcluido(status: ItemToDo) {
-    if (status.status === Statustodo.finalizar) {
-      this.listToDoService.testandoConcluido(status.status!).subscribe((data) => {
+  testandoConcluido(lista: ListaToDo, status: string) {
+    if (status === Statustodo.finalizar) {
+      // status.idlista = this.selectedList?.id
+      this.listToDoService.testandoConcluido(lista.id!, Statustodo.finalizar).subscribe((data) => {
         console.log("testandoConcluido", data)
+        this.itemToDoFinalizado = data
       })
-    }
+    } 
   }
   
 }

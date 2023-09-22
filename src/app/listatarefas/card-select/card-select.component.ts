@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ItemToDo } from 'src/app/models/itemto-do';
+import { ListaToDo } from 'src/app/models/listato-do';
 
 @Component({
   selector: 'app-card-select',
@@ -9,6 +10,9 @@ import { ItemToDo } from 'src/app/models/itemto-do';
 export class CardSelectComponent {
 
   @Input() toDoText?: ItemToDo[]
+  @Input() listaToDo?: ListaToDo[]
+  @Input() tabAtiva?: number
+  @Input() itemToDoFinalizado!: ItemToDo[]
   @Output() excluirItem =  new EventEmitter<number>()
   @Output() postStatus =  new EventEmitter<ItemToDo>()
   @Output() testeStatus =  new EventEmitter<ItemToDo>()
