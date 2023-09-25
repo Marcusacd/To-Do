@@ -1,9 +1,9 @@
 <div class="flex flex-row w-full h-full">
-    <div  class="tabs p-4 flex-col items-start justify-between">
+    <div class="tabs p-4 flex-col items-start justify-between">
         <!-- <a *ngFor="let item of listaToDo" class="tab tab-bordered" [id]=" item.id " (click)="buscarToDo(item)" [ngClass]="{ 'tab-active': tabAtiva === item.id }"> {{ item.nome }}</a>  -->
         <ul class="menu bg-base-200 w-56 rounded-box overflow-auto basis-11/12 input">
             <li>
-              <a *ngFor="let item of listaToDo" [id]="item.id" (click)="buscarToDo(item)" [ngClass]="{ 'bg-green-300': tabAtiva === item.id }">
+              <a *ngFor="let item of listaToDo" [id]="item.id" (click)="buscarToDo(item)" [ngClass]="{ 'bg-blue-300': tabAtiva === item.id }">
                 <mat-icon class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">list</mat-icon>
                 {{ item.nome }}
                 <mat-icon *ngIf="(tabAtiva === item.id) && (toDoText.length == 0) && ( itemToDoFinalizado.length == 0)" (click)="excluirNomeLista(item.id!)" class="text-red-500" title="Excluir">delete</mat-icon>
@@ -14,21 +14,21 @@
             <form [formGroup]="formListaNome" (keydown.enter)="enterListaNome($event)" class="flex flex-col">
                 <div class="relative pl-4">
                     <!-- <button class="btn btn-ghost" (click)="addNomeLista()">Nova Lista</button> -->
-                    <input type="text" formControlName="inputNomeLista" placeholder="Nova Lista" class="input input-sm input-ghost w-full max-w-xs   placeholder-blue-300 input-custom" />
-                    <mat-icon class="absolute inset-y-0 left-4 mt-1 cursor-pointer text-blue-300 text-base" (click)="addNomeLista()">add</mat-icon>
+                    <input type="text" formControlName="inputNomeLista" placeholder="Nova Lista" class="input input-sm input-ghost w-full max-w-xs placeholder-green-300 input-custom" />
+                    <mat-icon class="absolute inset-y-0 left-4 mt-1 cursor-pointer text-green-300 text-base" (click)="addNomeLista()">add</mat-icon>
                 </div>
             </form>  
         </div>     
     </div>
-    <div class="flex flex-col w-full bg-green-100">        
+    <div class="flex flex-col w-full bg-blue-100">        
         <div class="basis-5/6 overflow-auto">            
             <app-card-select [toDoText]="toDoText" [itemToDoFinalizado]="itemToDoFinalizado" [listaToDo]="listaToDo" [tabAtiva]="tabAtiva" (excluirItem)="excluir($event)" (postStatus)="putTodoByStatus($event)" ></app-card-select>
         </div>
         <div class="flex flex-col pl-4 pt-4 pr-4">
             <form [formGroup]="formToDo" class="flex flex-col" (keydown.enter)="enterCriarTarefa($event)">
-                <div class="relative bg-gray-50">
+                <div class="relative bg-gray-50 rounded-2xl">
                     <input type="text" formControlName="inputToDo" placeholder="Digite aqui e aperte Enter para criar uma nova tarefa." id="texto"
-                        class="input input-ghost w-full pr-10 placeholder-blue-300"/>
+                        class="input input-ghost w-full pr-10 placeholder-green-300"/>
                 </div>
             </form>
         </div>

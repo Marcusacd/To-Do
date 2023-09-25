@@ -1,4 +1,4 @@
-<div *ngFor="let item of listaToDo" [id]=" item.id" class="pl-2">
+<div *ngFor="let item of listaToDo" [id]=" item.id" class="pl-4">
     <h2 *ngIf="item.id == tabAtiva">
         {{ item.nome }}
     </h2>
@@ -9,7 +9,7 @@
             <div class="card-body flex flex-row items-center h-14">
                 <input type="radio" (click)="putTodoByStatus(tarefa)" class="radio radio-info w-4 h-4"
                     [checked]="tarefa.status == 'F'">
-                <p [ngClass]="{'line-through text-gray-300': tarefa.status == 'F'}" class="paragrafo pl-2 pr-4 w-full">
+                <p class="paragrafo pl-2 pr-4 w-full">
                     {{ tarefa.descricao }}</p>
             </div>
             <div class="card-actions justify-end items-center h-14">
@@ -21,9 +21,9 @@
     </div>
 </div>
 
-<div *ngIf="itemToDoFinalizado.length > 0" class="collapse collapse-arrow bg-green-100">
+<div *ngIf="itemToDoFinalizado.length > 0" class="collapse collapse-arrow">
     <input type="radio" name="my-accordion-2" (click)="listaConcluidos()" [checked]="listaConcluido" />
-    <div class="collapse-title text-xl font-medium bg-green-200 items-center">
+    <div class="collapse-title text-xl font-medium bg-blue-300 items-center">
         Concluída
         <div class="badge badge-lg">
             {{ itemToDoFinalizado.length }}
@@ -49,6 +49,3 @@
         </div>
     </div>
 </div>
-
-
-

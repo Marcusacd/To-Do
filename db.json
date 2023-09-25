@@ -45,7 +45,7 @@
   ],
   "lista": [
     {
-      "nome": "teste",
+      "nome": "Teste",
       "id": 1
     },
     {
@@ -53,11 +53,11 @@
       "nome": "To-Do"
     },
     {
-      "nome": "qwerty",
+      "nome": "Qwerty",
       "id": 2
     },
     {
-      "nome": "ola",
+      "nome": "Ola",
       "id": 3
     }
   ]
