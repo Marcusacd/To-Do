@@ -45,8 +45,7 @@ export class ListatarefasComponent implements OnInit {
   ngOnInit() {
     this.renderer.selectRootElement("#texto").focus()
 
-    this.nomeLista()  
-    // this.testandoConcluido(this.selectedList!, Statustodo.finalizar)    
+    this.nomeLista()         
     
   }
 
@@ -68,7 +67,7 @@ export class ListatarefasComponent implements OnInit {
       // console.log('buscarToDo', data)
       this.tabAtiva = lista.id
       this.getListaTodo(lista)
-      this.testandoConcluido(lista, Statustodo.finalizar)
+      this.getTodoStatusCompleted(lista, Statustodo.finalizar)
       this.selectedList = lista
     })
   }
@@ -106,7 +105,7 @@ export class ListatarefasComponent implements OnInit {
       console.log('excluir', data)
     })
     this.getListaTodo(this.selectedList!)
-    this.testandoConcluido(this.selectedList!, Statustodo.finalizar)
+    this.getTodoStatusCompleted(this.selectedList!, Statustodo.finalizar)
   }
 
   excluirNomeLista(id: number) {
@@ -148,14 +147,14 @@ export class ListatarefasComponent implements OnInit {
       this.listToDoService.putToDobyStatus(item).subscribe(data => {
         console.log("putTodoByStatus123", data)
         this.getListaTodo(this.selectedList!)
-        this.testandoConcluido(this.selectedList!, Statustodo.finalizar)
+        this.getTodoStatusCompleted(this.selectedList!, Statustodo.finalizar)
       })
     } else {
       item.status = Statustodo.aberto
       this.listToDoService.putToDobyStatus(item).subscribe(data => {
         console.log("putTodoByStatus123", data)
         this.getListaTodo(this.selectedList!)
-        this.testandoConcluido(this.selectedList!, Statustodo.finalizar)
+        this.getTodoStatusCompleted(this.selectedList!, Statustodo.finalizar)
       })
     }
   }
@@ -176,10 +175,10 @@ export class ListatarefasComponent implements OnInit {
   // }
 
 
-  testandoConcluido(lista: ListaToDo, status: string) {
+  getTodoStatusCompleted(lista: ListaToDo, status: string) {
     if (status === Statustodo.finalizar) {
       // status.idlista = this.selectedList?.id
-      this.listToDoService.testandoConcluido(lista.id!, Statustodo.finalizar).subscribe((data) => {
+      this.listToDoService.getTodoStatusCompleted(lista.id!, Statustodo.finalizar).subscribe((data) => {
         console.log("testandoConcluido", data)
         this.itemToDoFinalizado = data
       })

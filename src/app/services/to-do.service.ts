@@ -27,7 +27,7 @@ export class ToDoService {
   // }
   
   // teste para ver se funciona separar as mensagens abertas das finalizadas
-  testandoConcluido(id: number, status: string): Observable<ItemToDo[]> {
+  getTodoStatusCompleted(id: number, status: string): Observable<ItemToDo[]> {
     const params = new HttpParams().set('idlista', id).set('status', status)
     return this.http.get<ItemToDo[]>(`${this.API}/todo`, { params })
   }

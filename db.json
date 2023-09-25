@@ -10,7 +10,7 @@
       "id": 2,
       "descricao": "Fazer as compras",
       "idlista": 1,
-      "status": "A"
+      "status": "F"
     },
     {
       "descricao": "Testando db.json",
@@ -33,7 +33,7 @@
     {
       "descricao": "lenovo",
       "idlista": 1,
-      "status": "F",
+      "status": "A",
       "id": 7
     },
     {

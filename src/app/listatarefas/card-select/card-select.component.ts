@@ -9,6 +9,8 @@ import { ListaToDo } from 'src/app/models/listato-do';
 })
 export class CardSelectComponent {
 
+  listaConcluido: boolean = false
+
   @Input() toDoText?: ItemToDo[]
   @Input() listaToDo?: ListaToDo[]
   @Input() tabAtiva?: number
@@ -26,8 +28,16 @@ export class CardSelectComponent {
     this.postStatus.emit(status)    
   }
 
-  testandoConcluido(status: ItemToDo) {
+  getTodoStatusCompleted(status: ItemToDo) {
     this.testeStatus.emit(status)
+  }
+
+  listaConcluidos() {
+    if(this.listaConcluido === false) {
+      this.listaConcluido = true
+    }else {
+      this.listaConcluido = false
+    }
   }
 
 }

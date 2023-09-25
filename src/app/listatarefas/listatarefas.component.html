@@ -1,7 +1,7 @@
 <div class="flex flex-row w-full h-full">
     <div  class="tabs p-4 flex-col items-start justify-between">
         <!-- <a *ngFor="let item of listaToDo" class="tab tab-bordered" [id]=" item.id " (click)="buscarToDo(item)" [ngClass]="{ 'tab-active': tabAtiva === item.id }"> {{ item.nome }}</a>  -->
-        <ul class="menu bg-base-200 w-56 rounded-box">
+        <ul class="menu bg-base-200 w-56 rounded-box overflow-auto basis-11/12 input">
             <li>
               <a *ngFor="let item of listaToDo" [id]="item.id" (click)="buscarToDo(item)" [ngClass]="{ 'bg-green-300': tabAtiva === item.id }">
                 <mat-icon class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">list</mat-icon>
