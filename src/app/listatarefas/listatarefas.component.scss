@@ -4,5 +4,15 @@
 }
 
 .tabs:hover {
-    width: 50vw !important; 
+    width: auto !important;
+    opacity: 1; 
+}
+
+.tabs {
+    opacity: 0;
+    width: 0vw;
+}
+
+.visibilidade {
+    opacity: 1;
 }
