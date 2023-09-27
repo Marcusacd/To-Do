@@ -1,5 +1,5 @@
 <div class="flex flex-row w-full h-full">
-    <div class="tabs p-4 flex-col items-start justify-between">
+    <div class="tabs p-4 flex-col items-start justify-between visibilidade">
         <ul class="menu bg-base-200 w-56 rounded-box overflow-auto basis-11/12 input">
             <!-- <img src="../assets/imagens/canecaJava.png" class="w-8"> -->
             <li>
@@ -9,7 +9,7 @@
                     {{ item.nome }}
                     <mat-icon
                         *ngIf="(tabAtiva === item.id) && (toDoText.length == 0) && ( itemToDoFinalizado.length == 0)"
-                        (click)="excluirNomeLista(item.id!)" class="text-red-500 visibilidade" title="Excluir">delete</mat-icon>
+                        (click)="excluirNomeLista(item.id!)" class="text-red-500" title="Excluir">delete</mat-icon>
                 </a>
             </li>
         </ul>
