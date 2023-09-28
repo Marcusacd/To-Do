@@ -7,6 +7,7 @@ import { Statustodo } from '../enum/status-todo.enum';
 
 
 
+
 @Component({
   selector: 'app-listatarefas',
   templateUrl: './listatarefas.component.html',
@@ -22,6 +23,8 @@ export class ListatarefasComponent implements OnInit {
   formListaNome!: FormGroup
   selectedList?: ListaToDo
   itemToDoFinalizado: ItemToDo[] = []
+  showNome: boolean = false
+  showModal : boolean = false
   
 
 
@@ -30,6 +33,7 @@ export class ListatarefasComponent implements OnInit {
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
     private listToDoService: ToDoService,
+
   ) {
     this.formToDo = this.formBuilder.group({
       inputToDo: ['', Validators.compose([
@@ -58,7 +62,8 @@ export class ListatarefasComponent implements OnInit {
   enterListaNome(evento: Event) {
     evento.preventDefault(); // Impede o comportamento padrão da tecla Enter
     evento.stopPropagation(); // Impede a propagação do evento para outros elementos 
-    this.addNomeLista()
+    // this.addNomeLista()    
+    this.showModal = true
   }
 
   buscarToDo(lista: ListaToDo) {
@@ -121,16 +126,20 @@ export class ListatarefasComponent implements OnInit {
 
   nomeLista() {
     this.listToDoService.nomeLista().subscribe((data) => {
-      this.listaToDo = data      
+      data.forEach(item => {
+        this.listaToDo.push(new ListaToDo(item.id!, item.nome!, item.icone))
+      })       
+      console.log("listaToDo", this.listaToDo)      
+      console.log("data", data)      
       if (this.listaToDo.length > 0) {
         this.buscarToDo(this.listaToDo[0])
       }
     })
   }
 
-  addNomeLista() {
-    const item: ListaToDo = new ListaToDo
-    item.nome = this.formListaNome.value.inputNomeLista
+  addNomeLista(nome: string, icone: string) {
+    const item: ListaToDo = new ListaToDo(0, nome, icone)
+    // item.nome = this.formListaNome.value.inputNomeLista
     if (this.formListaNome.valid === true) {
       this.listToDoService.postNomeLista(item).subscribe((data) => {
         if (data) {
@@ -183,6 +192,19 @@ export class ListatarefasComponent implements OnInit {
         this.itemToDoFinalizado = data
       })
     } 
+  }
+
+  toggleList() {
+      this.showNome = !this.showNome
+      // console.log("displayNome", this.showNome)
+  }
+
+  closeModal() {    
+    this.showModal = false
+  }
+
+  mudarIcone() {
+
   }
   
 }

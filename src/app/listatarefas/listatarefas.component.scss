@@ -3,17 +3,17 @@
     /* Ajuste o valor conforme necessário para mover o texto para a direita */
 }
 
-.visibilidade:hover {    
-    width: auto !important;
-    opacity: 1; 
-    transition: width 0.6s ease;    
-}
+// .visibilidade:hover {    
+//     width: auto !important;
+//     opacity: 1; 
+//     transition: width 0.6s ease;    
+// }
 
-.visibilidade {
-    // display: none;
-    // opacity: 0;
-    width: 5vw;    
-}
+// .visibilidade {
+//     // display: none;
+//     // opacity: 0;
+//     width: 5vw;    
+// }
 
 .lista-icon:hover + .visibilidade {
     display: flex !important;
@@ -22,6 +22,4 @@
     transition: width 0.3s ease;
 }
 
-.sempreVisivel {
-    display: flex !important;
-}
+

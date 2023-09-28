@@ -8,12 +8,18 @@ import { CardSelectComponent } from './listatarefas/card-select/card-select.comp
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
+import { IconeListaModalComponent } from './modal/icone-lista-modal.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ListatarefasComponent,
-    CardSelectComponent
+    CardSelectComponent,
+    IconeListaModalComponent
+
+
   ],
   imports: [
     BrowserModule,

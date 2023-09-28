@@ -10,7 +10,7 @@
       "id": 2,
       "descricao": "Fazer as compras",
       "idlista": 1,
-      "status": "F"
+      "status": "A"
     },
     {
       "descricao": "Testando db.json",
@@ -21,7 +21,7 @@
     {
       "descricao": "status",
       "idlista": 1,
-      "status": "A",
+      "status": "F",
       "id": 5
     },
     {
@@ -46,7 +46,8 @@
   "lista": [
     {
       "nome": "Teste",
-      "id": 1
+      "id": 1,
+      "icone": "favorite"
     },
     {
       "id": 0,
@@ -59,6 +60,38 @@
     {
       "nome": "Ola",
       "id": 3
+    },
+    {
+      "nome": "ok",
+      "id": 4
+    },
+    {
+      "nome": "sim",
+      "id": 5
+    },
+    {
+      "nome": "fgfg",
+      "id": 6
+    },
+    {
+      "nome": "fdasg",
+      "id": 7
+    },
+    {
+      "nome": "mgss",
+      "id": 8
+    },
+    {
+      "nome": "tetr",
+      "id": 9
+    },
+    {
+      "nome": "fdgfdh",
+      "id": 10
+    },
+    {
+      "nome": "pooa",
+      "id": 11
     }
   ]
 }

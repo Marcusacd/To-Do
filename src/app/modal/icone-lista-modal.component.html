@@ -1,0 +1,17 @@
+<!-- Open the modal using ID.showModal() method -->
+<input type="checkbox" id="my-modal-1" class="modal-toggle" checked />
+<label for="my_modal_1" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Deseja trocar o ícone da sua lista?</h3>
+    <input [(ngModel)]="valorInput" type="text" id="modal" name="modal" placeholder="Digite o nome do ícone" class="input input-bordered input-info w-full max-w-xs" />
+    <p class="py-4">Visualização do ícone</p>    
+    <mat-icon>{{ valorInput }}</mat-icon>
+    <div class="modal-action justify-between w-full">
+      <!-- <form method="dialog"> -->
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn btn-outline btn-info" (click)="salvar(0, 'lala', valorInput)">Salvar</button>
+        <button class="btn btn-outline btn-info" (click)="fecharModal()">Fechar</button>
+      <!-- </form> -->
+    </div>
+  </div>
+</label>
