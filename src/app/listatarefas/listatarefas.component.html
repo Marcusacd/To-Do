@@ -11,16 +11,17 @@
                         {{ item.nome }}
                     </span>
                     <mat-icon
-                        *ngIf="(tabAtiva === item.id) && (toDoText.length == 0) && ( itemToDoFinalizado.length == 0)"
+                        *ngIf="(tabAtiva === item.id) && (toDoText.length == 0) && (itemToDoFinalizado.length == 0) && (showNome == true)"
                         (click)="excluirNomeLista(item.id!)" class="text-red-500" title="Excluir">delete</mat-icon>
                 </a>
             </li>
         </ul>
-        <app-icone-lista-modal *ngIf="showModal" (closeModal)="closeModal()"></app-icone-lista-modal>
+        <app-icone-lista-modal *ngIf="showModal" [listaToDo]="listaToDo" (closeModal)="closeModal()" (addNomeIcone)="addNomeLista($event)"></app-icone-lista-modal>
         <div *ngIf="showNome" class="w-full p-2">
-            <form [formGroup]="formListaNome" (keydown.enter)="enterListaNome($event)" class="flex flex-row">
-                <input type="text" formControlName="inputNomeLista" placeholder="+ Nova Lista"
-                    class="input input-sm input-ghost w-full max-w-xs placeholder-green-300 input-custom" />
+            <form [formGroup]="formListaNome" class="flex flex-row">
+                <button class="btn btn-ghost" (click)="openModal()">+ Nova Lista</button>
+                <!-- <input type="text" formControlName="inputNomeLista" placeholder="+ Nova Lista"
+                    class="input input-sm input-ghost w-full max-w-xs placeholder-green-300 input-custom" /> -->
             </form>
         </div>
     </div>

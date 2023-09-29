@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { ListaToDo } from '../models/listato-do';
 
 @Component({
@@ -6,12 +6,22 @@ import { ListaToDo } from '../models/listato-do';
   templateUrl: './icone-lista-modal.component.html',
   styleUrls: ['./icone-lista-modal.component.scss']
 })
-export class IconeListaModalComponent {
+export class IconeListaModalComponent implements OnInit {
+
+constructor(private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.renderer.selectRootElement("#nomeLista").focus()
+  }
 
   valorInput: string = ''
+  nomeLista: string = ''
 
+
+  @Input() listaToDo?: ListaToDo[]
   @Output() closeModal = new EventEmitter<boolean>()
-  @Output() changeIcon = new EventEmitter<ListaToDo>()
+  @Output() addNomeIcone = new EventEmitter<ListaToDo>()
+  
 
 
   fecharModal() {
@@ -19,7 +29,7 @@ export class IconeListaModalComponent {
   }
 
   salvar(id: number, nome: string, icon: string) {
-    this.changeIcon.emit(new ListaToDo(0, nome, icon))
+    this.addNomeIcone.emit(new ListaToDo(id, nome, icon))
   }
 
 }

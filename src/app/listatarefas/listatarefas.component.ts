@@ -24,8 +24,8 @@ export class ListatarefasComponent implements OnInit {
   selectedList?: ListaToDo
   itemToDoFinalizado: ItemToDo[] = []
   showNome: boolean = false
-  showModal : boolean = false
-  
+  showModal: boolean = false
+
 
 
 
@@ -49,8 +49,8 @@ export class ListatarefasComponent implements OnInit {
   ngOnInit() {
     this.renderer.selectRootElement("#texto").focus()
 
-    this.nomeLista()         
-    
+    this.nomeLista()
+
   }
 
   enterCriarTarefa(event: Event) {
@@ -68,7 +68,7 @@ export class ListatarefasComponent implements OnInit {
 
   buscarToDo(lista: ListaToDo) {
     this.listToDoService.getTodoByList(lista.id!, Statustodo.aberto).subscribe((data) => {
-    // this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
+      // this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
       // console.log('buscarToDo', data)
       this.tabAtiva = lista.id
       this.getListaTodo(lista)
@@ -79,14 +79,14 @@ export class ListatarefasComponent implements OnInit {
 
   getListaTodo(lista: ListaToDo) {
     this.listToDoService.getTodoByList(lista.id!, Statustodo.aberto).subscribe((data) => {
-    // this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
+      // this.listToDoService.getTodoByList(lista.id!).subscribe((data) => {
       this.toDoText = data
     })
   }
 
   getListById(id: number) {
     this.listToDoService.getTodoByList(id, Statustodo.aberto).subscribe((data) => {
-    // this.listToDoService.getTodoByList(id).subscribe((data) => {
+      // this.listToDoService.getTodoByList(id).subscribe((data) => {
       this.toDoText = data
     });
   }
@@ -128,26 +128,40 @@ export class ListatarefasComponent implements OnInit {
     this.listToDoService.nomeLista().subscribe((data) => {
       data.forEach(item => {
         this.listaToDo.push(new ListaToDo(item.id!, item.nome!, item.icone))
-      })       
-      console.log("listaToDo", this.listaToDo)      
-      console.log("data", data)      
+      })
+      console.log("listaToDo", this.listaToDo)
+      console.log("data", data)
       if (this.listaToDo.length > 0) {
         this.buscarToDo(this.listaToDo[0])
       }
     })
   }
 
-  addNomeLista(nome: string, icone: string) {
-    const item: ListaToDo = new ListaToDo(0, nome, icone)
+  // addNomeLista(nome: string, icone: string) {
+  //   const item: ListaToDo = new ListaToDo(0, nome, icone)
+  //   // item.nome = this.formListaNome.value.inputNomeLista
+  //   if (this.formListaNome.valid === true) {
+  //     this.listToDoService.postNomeLista(item).subscribe((data) => {
+  //       if (data) {
+  //         this.listaToDo.push(item)
+  //         this.formListaNome.reset()
+  //       }
+  //     })
+  //   }
+  // }
+
+  addNomeLista(lista: ListaToDo) {
+    const item: ListaToDo = new ListaToDo(lista.id!, lista.nome!, lista.icone)    
     // item.nome = this.formListaNome.value.inputNomeLista
-    if (this.formListaNome.valid === true) {
-      this.listToDoService.postNomeLista(item).subscribe((data) => {
-        if (data) {
-          this.listaToDo.push(item)
-          this.formListaNome.reset()
-        }
-      })
-    }
+    console.log('id da lista', lista.id)    
+    this.listToDoService.postNomeLista(item).subscribe((data) => {
+      if (data) {
+        this.listaToDo.push(item)
+        this.formListaNome.reset()
+      }
+    })
+    this.closeModal()
+    this.getListaTodo(this.selectedList!)
   }
 
   putTodoByStatus(item: ItemToDo) {
@@ -191,20 +205,20 @@ export class ListatarefasComponent implements OnInit {
         console.log("testandoConcluido", data)
         this.itemToDoFinalizado = data
       })
-    } 
+    }
   }
 
   toggleList() {
-      this.showNome = !this.showNome
-      // console.log("displayNome", this.showNome)
+    this.showNome = !this.showNome
+    // console.log("displayNome", this.showNome)
   }
 
-  closeModal() {    
+  openModal() {
+    this.showModal = true
+  }
+
+  closeModal() {
     this.showModal = false
   }
 
-  mudarIcone() {
-
-  }
-  
 }
