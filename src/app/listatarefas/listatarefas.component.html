@@ -6,7 +6,8 @@
             <li>
                 <a *ngFor="let item of listaToDo" [id]="item.id" (click)="buscarToDo(item)"
                     [ngClass]="{ 'bg-blue-300': tabAtiva === item.id }">
-                    <mat-icon class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">{{ item.icone }}</mat-icon>
+                    <mat-icon class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">{{ item.icone
+                        }}</mat-icon>
                     <span *ngIf="showNome">
                         {{ item.nome }}
                     </span>
@@ -16,7 +17,8 @@
                 </a>
             </li>
         </ul>
-        <app-icone-lista-modal *ngIf="showModal" [listaToDo]="listaToDo" (closeModal)="closeModal()" (addNomeIcone)="addNomeLista($event)"></app-icone-lista-modal>
+        <app-icone-lista-modal *ngIf="showModal" [listaToDo]="listaToDo" (closeModal)="closeModal()"
+            (addNomeIcone)="addNomeLista($event)"></app-icone-lista-modal>
         <div *ngIf="showNome" class="w-full p-2">
             <form [formGroup]="formListaNome" class="flex flex-row">
                 <button class="btn btn-ghost" (click)="openModal()">+ Nova Lista</button>

@@ -41,6 +41,36 @@
       "idlista": 3,
       "status": "A",
       "id": 8
+    },
+    {
+      "descricao": "comprar passagens",
+      "idlista": 4,
+      "status": "F",
+      "id": 9
+    },
+    {
+      "descricao": "Reservar Hotel",
+      "idlista": 4,
+      "status": "A",
+      "id": 10
+    },
+    {
+      "descricao": "comprar malas",
+      "idlista": 4,
+      "status": "A",
+      "id": 11
+    },
+    {
+      "descricao": "Realizar os exercícios semanais ",
+      "idlista": 5,
+      "status": "A",
+      "id": 12
+    },
+    {
+      "descricao": "Estudar para prova",
+      "idlista": 5,
+      "status": "A",
+      "id": 13
     }
   ],
   "lista": [
@@ -54,12 +84,18 @@
       "nome": "To-Do"
     },
     {
-      "id": 2,
-      "nome": "Qwerty"
-    },
-    {
       "nome": "Ola",
       "id": 3
+    },
+    {
+      "icone": "error",
+      "id": 4,
+      "nome": "Planos para Viajar"
+    },
+    {
+      "icone": "settings",
+      "id": 5,
+      "nome": "Faculdade"
     }
   ]
 }

@@ -29,7 +29,11 @@ constructor(private renderer: Renderer2) {}
   }
 
   salvar(id: number, nome: string, icon: string) {
-    this.addNomeIcone.emit(new ListaToDo(id, nome, icon))
+    if (this.nomeLista != '') {
+      this.addNomeIcone.emit(new ListaToDo(id, nome, icon))
+    }else {
+      window.alert('Informe o nome da lista ou feche o modal')
+    } 
   }
 
 }

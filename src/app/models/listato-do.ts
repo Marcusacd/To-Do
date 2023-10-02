@@ -3,6 +3,9 @@ export class ListaToDo {
     nome?: string  
     icone: string = 'list'
     constructor(id: number, nome: string, icone: string = "list") {
+        if (icone == '') {
+            icone = 'list'
+        }
         this.id = id
         this.nome = nome
         this.icone = icone

@@ -24,7 +24,7 @@ export class ListatarefasComponent implements OnInit {
   selectedList?: ListaToDo
   itemToDoFinalizado: ItemToDo[] = []
   showNome: boolean = false
-  showModal: boolean = false
+  showModal: boolean = false 
 
 
 
@@ -114,10 +114,13 @@ export class ListatarefasComponent implements OnInit {
   }
 
   excluirNomeLista(id: number) {
+    this.toggleList()    
     if (this.toDoText.length === 0) {
       this.listToDoService.excluirNomeLista(id).subscribe((data) => {
         console.log('excluirNomeLista', data)
-        this.nomeLista()
+        // this.nomeLista()
+        const idx = this.listaToDo.findIndex(item => item.id == id)
+        this.listaToDo.splice(idx, 1)        
       })
     } else {
       window.alert('A lista não esta vazia. Não é possivel excluir a lista')
@@ -125,6 +128,7 @@ export class ListatarefasComponent implements OnInit {
   }
 
   nomeLista() {
+    this.listaToDo = []
     this.listToDoService.nomeLista().subscribe((data) => {
       data.forEach(item => {
         this.listaToDo.push(new ListaToDo(item.id!, item.nome!, item.icone))
@@ -151,17 +155,19 @@ export class ListatarefasComponent implements OnInit {
   // }
 
   addNomeLista(lista: ListaToDo) {
-    const item: ListaToDo = new ListaToDo(lista.id!, lista.nome!, lista.icone)    
+    const item: ListaToDo = new ListaToDo(lista.id!, lista.nome!, lista.icone)
     // item.nome = this.formListaNome.value.inputNomeLista
-    console.log('id da lista', lista.id)    
+    console.log('id da lista', lista.id)
     this.listToDoService.postNomeLista(item).subscribe((data) => {
       if (data) {
-        this.listaToDo.push(item)
+        console.log('data addnomelista', data)
+        this.listaToDo.push(data)
         this.formListaNome.reset()
+        this.selectedList = data
       }
     })
     this.closeModal()
-    this.getListaTodo(this.selectedList!)
+    // this.getListaTodo(this.selectedList!)
   }
 
   putTodoByStatus(item: ItemToDo) {
@@ -219,6 +225,7 @@ export class ListatarefasComponent implements OnInit {
 
   closeModal() {
     this.showModal = false
+    this.showNome = false
   }
 
 }
